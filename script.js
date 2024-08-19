@@ -18,18 +18,19 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function switchSection(sectionId) {
-    sections.forEach((section) => {
-      if (section.id === sectionId) {
-        section.classList.add("active");
-        window.scrollTo({
-          top: section.offsetTop - document.querySelector(".navbar").offsetHeight,
-          behavior: "smooth",
-        });
-      } else {
-        section.classList.remove("active");
-      }
+    sections.forEach(section => {
+        if (section.id === sectionId) {
+            section.classList.add("active");
+            window.scrollTo({
+                top: section.offsetTop - document.querySelector('.navbar').offsetHeight,
+                behavior: 'smooth'
+            });
+        } else {
+            section.classList.remove("active");
+        }
     });
-  }
+}
+
 
   navLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
@@ -119,4 +120,47 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   alert('Thank you for your message! We will get back to you shortly.');
 
   document.getElementById('contactForm').reset();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const proceedBtn = document.querySelector('.proceed-btn');
+  const checkoutPage = document.querySelector('.checkout');
+  const cartPage = document.querySelector('.cart');
+  const placeOrderBtn = document.querySelector('.place-order-btn');
+  const checkoutItems = document.querySelector('.checkout-items');
+  const paymentMethodSelect = document.querySelector('#payment-method');
+
+  proceedBtn.addEventListener('click', () => {
+      cartPage.style.display = 'none';
+      checkoutPage.style.display = 'block';
+
+      cart.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = `${item.name} x${item.quantity} - ₹${item.quantity * item.price}`;
+          checkoutItems.appendChild(li);
+      });
+  });
+
+  placeOrderBtn.addEventListener('click', () => {
+      const selectedPaymentMethod = paymentMethodSelect.value;
+      if (selectedPaymentMethod === 'cod') {
+          alert('Order placed successfully with Cash on Delivery!');
+      }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const placeOrderBtn = document.querySelector('.place-order-btn');
+  const checkoutPage = document.querySelector('.checkout');
+
+  placeOrderBtn.addEventListener('click', () => {
+      checkoutPage.innerHTML = `
+          <div class="order-message">
+            <div class="order-message-box">
+              <h2>Sorry but your food was so tasty the owner ate it Please order some other day.</h2>
+              <p>😂</p>
+            </div>
+          </div>
+      `;
+  });
 });
